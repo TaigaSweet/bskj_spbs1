@@ -12,13 +12,15 @@ $(function() {
                 if (data.msg=="电子邮箱已存在，") {
                     node.style.color = "red";
                     document.getElementById("emailError").innerText = "邮箱已存在！";
+                    location.href="success.jsp";
                 }else  {
                     node.style.color = "green";
                     document.getElementById("emailError").innerText = "SUCCESS！";
+                    location.href="index.jsp";
                 }
             },
             error: function (msg) {
-                console.log(json);
+                console.log(msg);
             }
         });
     })
@@ -34,5 +36,30 @@ $(function() {
             node.style.color = "green";
             document.getElementById("pswError_1").innerText = "SUCCESS！";
         }
+    });
+    $("#success_by_reg_user").blur(function(){
+        var user=[{}];
+        $.ajax({
+            url: "user/reg_user.do",
+            type: "post",
+            data:{user:JSON.stringify(user)},
+            success: function (data) {
+                //var node = document.getElementById("emailError");
+                //alert(data);
+                if (data.msg=="success") {
+                   // node.style.color = "red";
+                  //  document.getElementById("emailError").innerText = "邮箱已存在！";
+                    location.href="success.jsp";
+                }else  {
+                  //  node.style.color = "green";
+                  //  document.getElementById("emailError").innerText = "SUCCESS！";
+
+                    location.href="index.jsp?name="+data.msg;
+                }
+            },
+            error: function (msg) {
+                console.log(msg);
+            }
+        });
     });
 });

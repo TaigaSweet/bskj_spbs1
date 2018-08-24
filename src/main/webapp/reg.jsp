@@ -27,7 +27,6 @@
 </head>
 <body>
 <div></div><br /><br />
-<form action="">
     <div id="base">
         <div><span>用  户   名  称：</span><input id="username" name="username" type="text" value="" style="width: 531px;height:20px"/>
             <span id="userError" style="color:red"></span></div><br />
@@ -43,8 +42,7 @@
             <span id="questionError" style="color:red"></span></div><br />
         <div><span>忘记密码提示答案：</span><input id="answer" name="answer" type="text" value="" style="width: 531px;height:20px"/>
             <span id="answerError" style="color:red"></span></div><br />
-        <div style="text-align: center;"><button type="submit" value="提交">提交</button></div>
+        <div style="text-align: center;"><button id="success_by_reg_user" type="button" value="提交">提交</button></div>
     </div>
-</form>
 </body>
 </html>

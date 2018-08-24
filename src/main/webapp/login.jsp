@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@page language="java" import="java.*"  %>
+<%@ page import="javax.swing.plaf.synth.SynthStyle" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +27,6 @@
         text-align:left;
     }
     #base{
-        background-image: url(picture/u0.png);
         width:1836px;
         height: 971px;
     }
@@ -118,7 +118,7 @@
             <button  id="a4" value="确定" type="submit">确定</button>
         </div>
 
-       <div style="color: aliceblue" ><a href="reg.jsp">注册账号</a></div>
+       <div style="color: aliceblue;position:relative;top:0px;left:0px;" ><a href="reg.jsp">注册账号</a></div>
 
     </form>
 </div>

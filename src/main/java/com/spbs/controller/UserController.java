@@ -6,6 +6,7 @@ import com.spbs.common.ServerSponse;
 import com.spbs.dao.UserMapper;
 import com.spbs.entity.User;
 import com.spbs.servers.UserServer;
+import net.sf.jsqlparser.schema.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -54,6 +55,12 @@ public class UserController {
         System.out.println(email);
         System.out.println(email_1);
         return email_1;
+    }
+    @RequestMapping(value = "reg_user.do")
+    @ResponseBody
+    public ServerSponse<String> reg(User user){
+        System.out.println(user);
+        return null;
     }
 }
 
