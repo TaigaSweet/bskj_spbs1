@@ -47,10 +47,11 @@ public class UserController {
     }
     @RequestMapping(value = "check_email.do",method = RequestMethod.POST)
     @ResponseBody
-    public ServerSponse<String> cheackUseremail(String email,HttpServletRequest request){
+    public ServerSponse<String> cheack_Useremail(String email){
        // String email=(String)request.getAttribute("email");
         System.out.println(email);
         ServerSponse<String> email_1= userServer.checkUseremail(email);
+        System.out.println(email);
         System.out.println(email_1);
         return email_1;
     }

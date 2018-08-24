@@ -38,7 +38,7 @@ public class IUserServerImpl implements UserServer{
 
     @Override
     public ServerSponse<String> checkUseremail(String email) {
-        int count =userMapper.cheackUseremail(email);
+        int count =userMapper.checkUseremail(email);
         if (count>0){
             return ServerSponse.createByErrorMessage("电子邮箱已存在，");
         }
