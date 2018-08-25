@@ -14,7 +14,9 @@ $(function(){
             success:function(data) {
                 //alert(data);
 
-                document.getElementById("userErro").innerText="用户名不存在！";
+                if (data.status==1){
+                    document.getElementById("userErro").innerText="用户名或密码错误！";
+                }
                 var json=JSON.parse(data);
                 console.log(json);
                 console.log(json.status);
@@ -27,5 +29,7 @@ $(function(){
             }
         });
     })
-
+$("#login-button").click(function(){
+    alert("aaa");
+});
 });

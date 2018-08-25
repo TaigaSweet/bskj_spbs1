@@ -54,6 +54,15 @@ public class IUserServerImpl implements UserServer{
         return ServerSponse.createBySuccessMessage("电话号码不存在");
     }
 
+    @Override
+    public ServerSponse<String> reg(User user) {
+        int count=userMapper.insert(user);
+        if (count>0){
+            return ServerSponse.createBySuccessMessage("注册成功！");
+        }
+        return ServerSponse.createByErrorMessage("注册失败");
+    }
+
 
     /*public User login(String username, String userPsw) throws Exception {
         System.out.println("IUserServerImpl:"+username+"  " +userPsw);

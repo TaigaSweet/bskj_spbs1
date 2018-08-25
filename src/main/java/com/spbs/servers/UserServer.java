@@ -12,5 +12,6 @@ public interface UserServer {
     ServerSponse<String> checkUseremail(String email);
 
     ServerSponse<String> checkUserphone(String phone);
+    ServerSponse<String> reg(User user);
 
 }
