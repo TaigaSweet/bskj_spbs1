@@ -37,9 +37,9 @@ public class UserController {
 
     @RequestMapping(value = "login.do",method = RequestMethod.POST)
     @ResponseBody
-    public ServerSponse<User> login(String username, String userPsw, HttpSession session){
-        System.out.println(username+" "+userPsw);
-        ServerSponse<User> response = userServer.login(username,userPsw);
+    public ServerSponse<User> login(String username, String password, HttpSession session){
+        System.out.println(username+" "+password);
+        ServerSponse<User> response = userServer.login(username,password);
         if(response.isSuccess()){
             session.setAttribute(Coust.CURRENT_USER,response.getData());
         }
@@ -63,9 +63,16 @@ public class UserController {
         System.out.println(email_1);
         return email_1;
     }
+
+    @RequestMapping(value = "check_phone.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerSponse<String> check_phone(String phone){
+        ServerSponse<String> check_user_phone=userServer.checkUserphone(phone);
+        return check_user_phone;
+    }
     @RequestMapping(value = "reg_user.do",method = RequestMethod.POST)
     @ResponseBody
-    public ServerSponse<String> reg_user_(String username, String password, String email, String phone, String question, String answer,String role,String create_time,String update_time) throws ParseException {
+    public ServerSponse<User> reg_user_(String username, String password, String email, String phone, String question, String answer,String role,String create_time,String update_time) throws ParseException {
         User user=new User();
         String pass_1=MD5Code.MD5EncodeUtf8(password);
         int role_number=Integer.parseInt(role);
@@ -76,7 +83,7 @@ public class UserController {
         user.setUsername(username);user.setPassword(pass_1);user.setEmail(email);user.setPhone(phone);user.setRole(role_number);
         user.setQuestion(question);user.setAnswer(answer);user.setCreateTime(utilDate);user.setUpdateTime(utilDate_);
         System.out.println(user.getUsername()+"\n"+pass_1+"\t"+user.getPassword());
-        ServerSponse<String> reg_user=userServer.reg(user);
+        ServerSponse<User> reg_user=userServer.reg(user);
         return reg_user;
     }
 }

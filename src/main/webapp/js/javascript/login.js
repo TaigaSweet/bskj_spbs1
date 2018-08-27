@@ -3,33 +3,46 @@ function func(){
     window.location.href = "/bskj_spbs1/reg.jsp";
 }
 $(function(){
-    $("#userName").blur(function () {
-        var userN=document.getElementById("userName").value;
-        var userP=document.getElementById("userPsw").value;
-        $.ajax({
-            url:"user/check_username.do",
-            type:"post",
-            data:{username:userN,userPsw:userP},
-            dataType:"text",
-            success:function(data) {
-                //alert(data);
+    var file=$("#file").val();
+    $("#file").click(function () {
 
-                if (data.status==1){
-                    document.getElementById("userErro").innerText="用户名或密码错误！";
-                }
-                var json=JSON.parse(data);
-                console.log(json);
-                console.log(json.status);
-                console.log(json.msg);
-                console.log(data);
-            },
-            error:function (msg) {
-                //alert(msg);
-                console.log(msg);
-            }
-        });
-    })
-$("#login-button").click(function(){
-    alert("aaa");
+        var file=$("#file").val();
+        console.log(file);
+    });
+    $("#login-button_1").click(function(){
+        location.href="reg.jsp";
+    });
+$("#login-button").click(function(){var file=$("#file").val();
+    var userN=$("#userName").val();
+    var userP=$("#userPsw").val();
+    console.log(file);
+    $.ajax({
+        url:"user/login.do",
+        type:"post",
+        data:{username:userN,password:userP},
+        dataType:"text",
+        success:function(data_1) {
+            alert("用户密码错误，请仔细检查是否输入有误");
+            var json=JSON.parse(data_1);
+            console.log(json.data);
+           // var json_data=JSON.parse(json.data);
+            //console.log("QWER"+"ddd+::::"+json_data+"   "+json_data.username);
+          /*  if (data.status==1){
+                document.getElementById("userErro").innerText="用户名或密码错误！";
+            }*/
+
+
+            console.log(json.data.username);
+            console.log(json.status);
+            console.log(json.msg);
+            console.log(data_1);
+            //location.href="index.jsp";
+        },
+        error:function (msg) {
+            //alert(msg);
+            console.log(msg);
+            location.href="login.jsp";
+        }
+    });
 });
 });

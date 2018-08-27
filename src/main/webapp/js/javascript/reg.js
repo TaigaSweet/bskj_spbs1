@@ -1,56 +1,135 @@
 var status_email;
 $(function() {
-//JSON.stringify(data)
+    $("#username").blur(function () {
+        var userN=document.getElementById("username").value;
+        if (userN!=null&&userN!=""){
+            $.ajax({
+                url:"user/check_username.do",
+                type:"post",
+                data:{username:userN},
+                dataType:"text",
+                success:function(data) {
+                    //alert(data);
+                    var json=JSON.parse(data);
 
-    $("#email").blur(function () {
-        var email=document.getElementById("email").value;
-        $.ajax({
-            url: "user/check_email.do",
-            type: "post",
-            data:{email:email},
-            success: function (data) {
-                status_email=data.status;
-                var node = document.getElementById("emailError");
-                //alert(data);
-                if (data.msg=="电子邮箱已存在，") {
-                    node.style.color = "red";
-                    document.getElementById("emailError").innerText = "邮箱已存在！";
-                    //location.href="reg.jsp";
-                }else  {
-                    node.style.color = "green";
-                    document.getElementById("emailError").innerText = "SUCCESS！";
-                    //location.href="index.jsp";
+                        if (json.status==0){
+                            document.getElementById("usernameError").innerText="用户已存在！";
+                        }
+                        else{
+                            document.getElementById("usernameError").innerText="可以注册！";
+                        }
+                    var json=JSON.parse(data);
+                    console.log(json);
+                    console.log(json.status);
+                    console.log(json.msg);
+                    console.log(data);
+                },
+                error:function (msg) {
+                    //alert(msg);
+                    console.log(msg);
                 }
-            },
-            error: function (msg) {
-                console.log(msg);
-            }
-        });
+            });
+        } else{
+            document.getElementById("usernameError").innerText="请输入用户名";
+        }
     })
-    $("#password_1").blur(function () {
-        var pass_1 = document.getElementById("password").value;
-        var pass_2 = document.getElementById("password_1").value;
+    $("#userEmail").blur(function () {
+        var email=document.getElementById("userEmail").value;
+        if (email!=null&&email!=""){
+            $.ajax({
+                url: "user/check_email.do",
+                type: "post",
+                data:{email:email},
+                success: function (data) {
+                   // alert(data);
+                    console.log(data);
+                    status_email=data.status;
+                    var node = document.getElementById("emailError");
+                    //alert(data);
+                    if (data.status==1) {
+                        node.style.color = "red";
+                        document.getElementById("emailError").innerText = "邮箱已存在！";
+                        //location.href="reg.jsp";
+                    }else  {
+                        node.style.color = "green";
+                        document.getElementById("emailError").innerText = "SUCCESS！";
+                        //location.href="index.jsp";
+                    }
+                },
+                error: function (msg) {
+                    console.log(msg);
+                }
+            });
+        } else{
+            document.getElementById("emailError").innerText = "请输入邮箱！";
+        }
+    })
+    $("#userPhone").blur(function () {
+        var phone=document.getElementById("userPhone").value;
+        if (phone!=null&&phone!=""){
+            $.ajax({
+                url: "user/check_phone.do",
+                type: "post",
+                data:{phone:phone},
+                success: function (data) {
+                    //alert(data);
+                    console.log(data);
+                    status_email=data.status;
+                    var node = document.getElementById("phoneError");
+                    //alert(data);
+                    if (data.status!=0) {
+                        node.style.color = "red";
+                        document.getElementById("phoneError").innerText = "电话号码已存在！";
+                        //location.href="reg.jsp";
+                    }else  {
+                        node.style.color = "green";
+                        document.getElementById("phoneError").innerText = "可以注册";
+                        //location.href="index.jsp";
+                    }
+                },
+                error: function (msg) {
+                    console.log(msg);
+                }
+            });
+        }else{
+            document.getElementById("phoneError").innerText = "请输入电话号码";
+        }
+    })
+    $("#userRePassword").blur(function () {
+        var pass_1 = document.getElementById("userPassword").value;
+        var pass_2 = document.getElementById("userRePassword").value;
         console.log(pass_1+"  "+pass_2);
-        var node = document.getElementById("pswError_1");
+        var node = document.getElementById("passwordError");
         if (pass_1 != pass_2) {
             node.style.color = "red";
-            document.getElementById("pswError_1").innerText = "输入不一致！";
-        } else {
-            node.style.color = "green";
-            document.getElementById("pswError_1").innerText = "SUCCESS！";
+            document.getElementById("passwordError").innerText = "两次输入密码不一致";
+        }else {
+            document.getElementById("passwordError").innerText = "";
         }
     });
-    $("#success_by_reg_user").click(function(){
+    $("#userEmail_2").blur(function () {
+        var pass_1 = document.getElementById("userEmail_1").value;
+        var pass_2 = document.getElementById("userEmail_2").value;
+        console.log(pass_1+"  "+pass_2);
+        var node = document.getElementById("emailError");
+        if (pass_1 != pass_2) {
+            node.style.color = "red";
+            document.getElementById("emailError").innerText = "两次输入不能一致";
+        }else{
+            document.getElementById("emailError").innerText = "";
+        }
+    });
+    $("#xiao-submit-button").click(function(){
         alert(status_email);
         var user=[];
         //user.username="";
         var myDate=new Date().format("yyyy-MM-dd hh:mm:ss");
         var username = document.getElementById("username").value;
-        var password = document.getElementById("password").value;
-        var email = document.getElementById("email").value;
-        var phone = document.getElementById("phone").value;
-        var question = document.getElementById("question").value;
-        var answer = document.getElementById("answer").value;
+        var password = document.getElementById("userPassword").value;
+        var email = document.getElementById("userEmail").value;
+        var phone = document.getElementById("userPhone").value;
+        var question = document.getElementById("userEmail_1").value;
+        var answer = document.getElementById("userEmail_2").value;
         var role = 0;
         var create_time =myDate;
         var update_time = myDate;
@@ -68,20 +147,7 @@ $(function() {
                 phone:phone,question:question,answer:answer,role:role,
                 create_time:create_time,update_time:update_time},
             success: function (data_) {//如果注册成功 status=0；
-                //var node = document.getElementById("emailError");data: JSON.stringify(param)
-                //alert(data);
-                console.log(data_);
-                alert(",.,/./,./,/,/."+JSON.stringify(user));
-                /*if (data.msg=="success") {
-                   // node.style.color = "red";
-                  //  document.getElementById("emailError").innerText = "邮箱已存在！";
-                    //location.href="success.jsp";
-                }else  {
-                  //  node.style.color = "green";
-                  //  document.getElementById("emailError").innerText = "SUCCESS！";
 
-                   // location.href="index.jsp?name="+data.msg;
-                }*/
             },
             error: function (msg) {
                 alert(";';';';';';';';'"+JSON.stringify(user));

@@ -1,4 +1,4 @@
-@import url(http://fonts.useso.com/css?family=Source+Sans+Pro:200,300);
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -67,8 +67,7 @@ body :-ms-input-placeholder {
   font-size: 40px;
   -webkit-transition-duration: 1s;
           transition-duration: 1s;
-  -webkit-transition-timing-function: ease-in-put;
-          transition-timing-function: ease-in-put;
+
   font-weight: 200;
 }
 form {
@@ -113,7 +112,7 @@ form button {
   padding: 10px 15px;
   color: #53e3a6;
   border-radius: 3px;
-  width: 250px;
+  width: 124px;
   cursor: pointer;
   font-size: 18px;
   -webkit-transition-duration: 0.25s;

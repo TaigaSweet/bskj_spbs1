@@ -8,41 +8,92 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>注册</title>
+    <meta charset="UTF-8">
+    <title>账户注册</title>
+    <link type="text/css" href="css/user_reg_deal.css" rel="Stylesheet" />
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     <script src="js/javascript/reg.js"></script>
-    <script src></script>
-    <style type="text/css">
-        body {
-            margin:0px;
-            background-image:none;
-            position:relative;
-            left:-0px;
-            width:722px;
-            margin-left:auto;
-            margin-right:auto;
-            text-align:left;
-        }
-    </style>
 </head>
 <body>
-<div></div><br /><br />
-    <div id="base">
-        <div><span>用  户   名  称：</span><input id="username" name="username" type="text" value="" style="width: 531px;height:20px"/>
-            <span id="userError" style="color:red"></span></div><br />
-        <div><span>用   户   密   码：</span><input  id="password" name="password" type="password" value="" style="width: 531px;height:20px"/>
-            <span id="pswError" style="color:red"></span></div><br />
-        <div><span>确 定   密   码：</span><input  id="password_1" type="password" value="" style="width: 531px;height:20px"/>
-            <span id="pswError_1" style="color:red"></span></div><br />
-        <div><span>电 子  邮   箱：</span><input  id="email" name="email" type="text" value="" style="width: 531px;height:20px"/>
-            <span id="emailError" style="color:red"></span></div><br />
-        <div><span>电  话  号  码：</span><input id="phone" name="phone" type="text" value="" style="width: 531px;height:20px"/>
-            <span id="phoneError" style="color:red"></span></div><br />
-        <div><span>忘记密码提示问题：</span><input id="question" name="question" type="text" value="" style="width: 531px;height:20px"/>
-            <span id="questionError" style="color:red"></span></div><br />
-        <div><span>忘记密码提示答案：</span><input id="answer" name="answer" type="text" value="" style="width: 531px;height:20px"/>
-            <span id="answerError" style="color:red"></span></div><br />
-        <div style="text-align: center;"><button id="success_by_reg_user" type="button" value="提交">提交</button></div>
+<div class="xiao-container">
+    <div class="xiao-register-box">
+        <div class="xiao-title-box">
+            <span>用户注册</span>
+        </div>
+
+        <div class="xiao-username-box">
+            <span class="xiao-require">*</span>
+            <label for="username">用户名</label>
+            <div class="xiao-username-input">
+                <input type="text" id="username" name="username" placeholder="请输入用户名 长度:6-12个字符" />
+                <span id="usernameError" style="font-size: 12px;color: red;"></span>
+            </div>
+        </div>
+
+        <div class="xiao-userPassword-box">
+            <span class="xiao-require">*</span>
+            <label for="userPassword">密码</label>
+            <div class="xiao-userPassword-input">
+                <input type="password" id="userPassword" name="password" placeholder="请输入密码 长度:6-12个字符" />
+                <span  style="font-size: 12px;color: red;"></span>
+            </div>
+        </div>
+
+        <div class="xiao-userRePassword-box">
+            <span class="xiao-require">*</span>
+            <label for="userRePassword">确认密码</label>
+            <div class="xiao-userRePassword-input">
+                <input type="password" id="userRePassword" name="userRePassword" placeholder="请重复输入密码" />
+                <span id="passwordError" style="font-size: 12px;color: red;"></span>
+            </div>
+        </div>
+
+        <div class="xiao-userPhone-box">
+            <span class="xiao-require">*</span>
+            <label for="userPhone">手机号码</label>
+            <div class="xiao-userPhone-input">
+                <input type="text" id="userPhone" name="phone" placeholder="请输入您的手机号码，11位有效数字" />
+                <span id="phoneError" style="font-size: 12px;color: red;"></span>
+            </div>
+        </div>
+
+        <div class="xiao-userEmail-box">
+            <span class="xiao-require">*</span>
+            <label for="userEmail">电子邮箱</label>
+            <div class="xiao-userEmail-input">
+                <input type="text" id="userEmail" name="email" placeholder="请输入您的邮箱地址，如：123@qq.com" />
+                <span id="emailError" style="font-size: 12px;color: red;"></span>
+            </div>
+        </div>
+
+        <div class="xiao-userGender-box">
+            <span class="xiao-require">*</span>
+            <label for="userGender">密保问题</label>
+            <div class="xiao-userGender-input">
+                <input type="text" id="userEmail_1" name="question" placeholder="请输入您的问题，和答案不要一致" />
+                <span id="questionError" style="font-size: 12px;color: red;"></span>
+            </div>
+        </div>
+        <div class="xiao-userGender-box_1">
+            <span class="xiao-require">*</span>
+            <label for="userGender_1">密保答案</label>
+            <div class="xiao-userGender-input_1">
+                <input type="text" id="userEmail_2" name="answer" placeholder="请输入您的答案，和问题不要一致" />
+                <span id="answerError" style="font-size: 12px;color: red;"></span>
+            </div>
+        </div>
+        <div class="xiao-submit-box">
+            <input id = "xiao-submit-button" type="button" value="注册">
+        </div>
+
+        <div class="xiao-goLogin-box">
+            <a href="login.jsp" style="text-decoration: none;">已有账号？去登录</a>
+        </div>
+        <div class="xiao-goLogin-box_1">
+            <a href="fileUpload.jsp" style="text-decoration: none;">图片上传</a>
+        </div>
+
     </div>
+</div>
 </body>
 </html>

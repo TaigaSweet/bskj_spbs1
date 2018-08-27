@@ -22,8 +22,9 @@
 
             <form class="form">
                 <input type="text" id="userName" name="userName" placeholder="Username">
-                <input type="password" name="userPsw" placeholder="Password">
-                <button type="submit" id="login-button">Login</button>
+                <input type="password" id="userPsw" name="userPsw" placeholder="Password">
+                <button type="button" id="login-button">Login</button>
+                <button type="button" id="login-button_1">register</button>
             </form>
         </div>
 

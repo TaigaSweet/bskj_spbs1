@@ -47,7 +47,7 @@ public class IUserServerImpl implements UserServer{
 
     @Override
     public ServerSponse<String> checkUserphone(String phone) {
-        int count =userMapper.cheackUserphone(phone);
+        int count =userMapper.checkUserphone(phone);
         if (count>0){
             return ServerSponse.createByErrorMessage("电话号码已存在，");
         }
@@ -55,12 +55,17 @@ public class IUserServerImpl implements UserServer{
     }
 
     @Override
-    public ServerSponse<String> reg(User user) {
-        int count=userMapper.insert(user);
-        if (count>0){
-            return ServerSponse.createBySuccessMessage("注册成功！");
+    public ServerSponse<User> reg(User user) {
+        if (user.getQuestion().equalsIgnoreCase(user.getAnswer())){
+            return ServerSponse.createByErrorMessage("问题和答案不能一致！");
         }
-        return ServerSponse.createByErrorMessage("注册失败");
+        else{
+            int count=userMapper.insert(user);
+            if (count>0){
+                return ServerSponse.createBySuccessMessage("注册成功！");
+            }
+            return ServerSponse.createByErrorMessage("注册失败");
+        }
     }
 
 
