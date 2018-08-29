@@ -25,5 +25,6 @@
 </script>
 <body>
 <h2>当前用户名：</h2><span id="username"></span>
+<a href="categoryItem.jsp">商品分类表</a>
 </body>
 </html>
