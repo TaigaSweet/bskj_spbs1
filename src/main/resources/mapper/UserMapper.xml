@@ -165,7 +165,7 @@
     select count(1) from mmall_user
     where phone = #{phone}
   </select>
-    <select id="selectLogin" resultMap="BaseResultMap" parameterType="map">
+    <select id="selectLoginByName" resultMap="BaseResultMap" parameterType="map">
         SELECT
         <!--      ???//这样真的好么?答案就是,这样不好.-->
         <include refid="Base_Column_List" />
@@ -173,4 +173,20 @@
         where username = #{username}
         and password = #{password}
     </select>
+  <select id="selectLoginByPhone" resultMap="BaseResultMap" parameterType="map">
+    SELECT
+    <!--      ???//这样真的好么?答案就是,这样不好.-->
+    <include refid="Base_Column_List" />
+    from mmall_user
+    where phone = #{username}
+    and password = #{password}
+  </select>
+  <select id="selectLoginByEmail" resultMap="BaseResultMap" parameterType="map">
+    SELECT
+    <!--      ???//这样真的好么?答案就是,这样不好.-->
+    <include refid="Base_Column_List" />
+    from mmall_user
+    where email = #{username}
+    and password = #{password}
+  </select>
 </mapper>

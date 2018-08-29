@@ -9,7 +9,8 @@
 <html>
 <head>
     <title>文件上传</title>
-
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/javascript/upload.js"></script>
     <style>
         body {
             margin:0px;
@@ -43,6 +44,26 @@
             -khtml-opacity: 0;
             opacity: 0;
         }
+        #file-load{
+            width: 127px;
+            height: 38px;
+            background: inherit;
+            background-color: rgba(22, 155, 213, 1);
+            border: none;
+            border-radius: 5px;
+            -moz-box-shadow: none;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            font-family: '微软雅黑';
+            font-weight: 400;
+            font-style: normal;
+            font-size: 14px;
+            position: relative;
+            top: 0px;
+            left: 39%;
+            text-align: center;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -51,7 +72,8 @@
         <input type="file" class="file-btn"/>
         上传文件
     </div>
-    <img style="height:100px;width:100px;" src="webapp/picture/time.jpg" />
+    <img id="img_class" style="height:100px;width:100px;" src="" />
+    <div id="file-load"><p id="ac" style="color: white;position: relative;top: 08px;left: 0px;">添加</p></div><br />
 </div>
 </body>
 </html>

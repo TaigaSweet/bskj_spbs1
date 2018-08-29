@@ -10,7 +10,7 @@ public interface UserServer {
     ServerSponse<String> checkUsernames(String username);
 
     ServerSponse<String> checkUseremail(String email);
-
+    ServerSponse<String> checkUserAdmin(User user);
     ServerSponse<String> checkUserphone(String phone);
     ServerSponse<User> reg(User user);
 

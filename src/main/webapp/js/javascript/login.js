@@ -22,9 +22,14 @@ $("#login-button").click(function(){var file=$("#file").val();
         data:{username:userN,password:userP},
         dataType:"text",
         success:function(data_1) {
-            alert("用户密码错误，请仔细检查是否输入有误");
+
             var json=JSON.parse(data_1);
             console.log(json.data);
+            if(json.status==1){
+                alert("用户密码错误，请仔细检查是否输入有误");
+            }else{
+                location.href="index.jsp";
+            }
            // var json_data=JSON.parse(json.data);
             //console.log("QWER"+"ddd+::::"+json_data+"   "+json_data.username);
           /*  if (data.status==1){

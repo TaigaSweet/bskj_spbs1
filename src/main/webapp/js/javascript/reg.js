@@ -120,7 +120,6 @@ $(function() {
         }
     });
     $("#xiao-submit-button").click(function(){
-        alert(status_email);
         var user=[];
         //user.username="";
         var myDate=new Date().format("yyyy-MM-dd hh:mm:ss");
@@ -147,7 +146,7 @@ $(function() {
                 phone:phone,question:question,answer:answer,role:role,
                 create_time:create_time,update_time:update_time},
             success: function (data_) {//如果注册成功 status=0；
-
+                console.log("如果注册成功 status=0；"+data_);
             },
             error: function (msg) {
                 alert(";';';';';';';';'"+JSON.stringify(user));

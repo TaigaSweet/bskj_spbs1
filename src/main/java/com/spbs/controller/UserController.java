@@ -4,12 +4,14 @@ import com.google.gson.Gson;
 import com.spbs.common.Coust;
 import com.spbs.common.MD5Code;
 import com.spbs.common.ServerSponse;
+import com.spbs.common.Sta_Type;
 import com.spbs.dao.UserMapper;
 import com.spbs.entity.User;
 import com.spbs.servers.UserServer;
 import net.sf.jsqlparser.schema.Server;
 import org.codehaus.jackson.map.util.JSONPObject;
 import org.joda.time.DateTime;
+import org.omg.CORBA.ServerRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -28,6 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping(value = "user/")
@@ -85,6 +88,23 @@ public class UserController {
         System.out.println(user.getUsername()+"\n"+pass_1+"\t"+user.getPassword());
         ServerSponse<User> reg_user=userServer.reg(user);
         return reg_user;
+    }
+    @RequestMapping(value = "upload_path.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerSponse<User> upload_path_(String img_path,HttpServletRequest request) throws ParseException {
+        System.out.println("进入控制层...");
+        System.out.println(img_path);
+        String path=request.getSession().getServletContext().getRealPath("uploadfile\\");
+        String uuid = UUID.randomUUID().toString().replaceAll("-","");
+
+        return null;
+    }
+    public ServerSponse<String> isAdmin(HttpSession session){
+        User user=(User)session.getAttribute(Coust.CURRENT_USER);
+        if (user==null){
+            return ServerSponse.createByErrorCodeMessage(Sta_Type.NEED_LOGIN.getCode(),"您好需要登录才可以操作");
+        }
+        return userServer.checkUserAdmin(user);
     }
 }
 

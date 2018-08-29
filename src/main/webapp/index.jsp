@@ -10,11 +10,20 @@
 <html>
 <head>
     <title>Title</title>
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 </head>
+<script>
+    $(function(){
+        var userEntity='${sessionScope.currentUser.getUsername()}';
+        var userPass='${sessionScope.currentUser.getEmail()}';
+        alert(userEntity+"  "+userPass);
+        /*console.log(userEntity);
+        var search = location.search.slice(1); //得到get方式提交的查询字符串
+        console.log(userEntity+"\n\t"+search);*/
+        document.getElementById("username").innerText=userEntity;
+    });
+</script>
 <body>
-aaaaaaddd<%
-String s=(String)request.getAttribute("name");
-%><%=s
-%>
+<h2>当前用户名：</h2><span id="username"></span>
 </body>
 </html>

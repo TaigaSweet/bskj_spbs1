@@ -22,7 +22,10 @@ public interface UserMapper {
 
     int checkUserphone(String phone);
 
-    User selectLogin(@Param("username") String username, @Param("password")String password);
+    User selectLoginByName(@Param("username") String username, @Param("password")String password);
+    User selectLoginByPhone(@Param("username") String username, @Param("password")String password);
+    User selectLoginByEmail(@Param("username") String username, @Param("password")String password);
 
     int regUser(User user);
+    int checkUserAdmin(@Param("username") String username);
 }
