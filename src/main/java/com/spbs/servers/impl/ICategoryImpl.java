@@ -41,18 +41,20 @@ public class ICategoryImpl implements CategoryServer {
             }
         }
         return ServerSponse.createBySuccess(cateIdList);
-
     }
 
     //递归算法,算出子节点
     private Set<Category> findChildCategory(Set<Category> set,Integer find_id){
         Category category=categoryMappers.selectByPrimaryKey(find_id);
+        System.out.println(category);
         if (category!=null){
             set.add(category);
         }
         //查找子节点,递归算法一定要有一个退出的条件
         List<Category> list=categoryMappers.selectCategoryChildrenByParentId(find_id);
+        System.out.println(list);
         for(Category item:list){
+            System.out.println(item.getId()+"  "+item.getName());
             findChildCategory(set,item.getId());
         }
         return set;

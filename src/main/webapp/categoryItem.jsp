@@ -10,10 +10,6 @@
 <head>
     <title>用户管理--->商品分类</title>
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
-    <script src="js/adapter.js"></script> <!--rem适配js-->
-
-    <link rel="stylesheet" href="css/base.css"> <!--初始化文件-->
-    <link rel="stylesheet" href="css/menu.css"> <!--主样式-->
     <script src="js/javascript/categoryItem.js"></script> <!--rem适配js-->
 </head>
 <style>
@@ -59,7 +55,9 @@
         </div>
     </div>
 </div>
-
+<script src="js/adapter.js"></script> <!--rem适配js-->
+<link rel="stylesheet" href="css/base.css"> <!--初始化文件-->
+<link rel="stylesheet" href="css/menu.css"> <!--主样式-->
 <script src="js/menu.js"></script> <!--控制js-->
 </body>
 </html>

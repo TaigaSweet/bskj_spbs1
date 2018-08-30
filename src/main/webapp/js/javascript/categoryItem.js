@@ -9,7 +9,7 @@ $(function(){
                 console.log(data_1.data);
                 for (var i=0;i<data_1.data.length;i++){
                     console.log(data_1.data[i].name);
-                    var e="<li><h2 class=\"obtain\">"+data_1.data[i].name+"<i></i></h2><div id="+data_1.data[i].id+" class=\"secondary_"+i+"\"></div></li>";
+                    var e="<li><h2 class=\"obFocus\">"+data_1.data[i].name+"<i></i></h2><div style=\"height: 2.5078rem;\" id="+data_1.data[i].id+" class=\"secondary\"></div></li>";
                     append_Item.append(e);
                     ajax_default(data_1.data[i].id);
                 }
