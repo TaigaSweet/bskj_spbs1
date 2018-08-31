@@ -7,30 +7,11 @@ import com.spbs.common.ServerSponse;
 import com.spbs.dao.UserMapper;
 import com.spbs.entity.User;
 import com.spbs.servers.UserServer;
-import com.sun.mail.util.MailSSLSocketFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.mail.Message;
-import javax.mail.Session;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.util.Date;
-import java.util.Properties;
-import java.util.*;
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.activation.*;
-import java.util.Properties;
-
-import javax.mail.Message;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-
-import com.sun.mail.util.MailSSLSocketFactory;
+import java.util.UUID;
 
 @Service("iUserService")
 public class IUserServerImpl implements UserServer{
@@ -39,7 +20,7 @@ public class IUserServerImpl implements UserServer{
     private UserMapper userMapper;
 
     @Override
-    public ServerSponse<User> login(String username, String password){
+    public ServerSponse<User> login(String username, String password) {
 
         String md5Password = MD5Code.MD5EncodeUtf8(password);
         //String em = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";String ph = "^[1][34578]\\d{9}$"; phoneNo.matches(ph)
@@ -96,6 +77,17 @@ public class IUserServerImpl implements UserServer{
     }
 
     @Override
+    public ServerSponse<User> reg(User user) {
+
+            int count=userMapper.insert(user);
+            if (count>0){
+                return ServerSponse.createBySuccessMessage("注册成功！");
+            }
+            return ServerSponse.createByErrorMessage("注册失败");
+
+    }
+
+    @Override
     public ServerSponse<String> checkUserAnswer(String username, String question, String answer) {
         int count=userMapper.checkUserAnswer(username,question,answer);
         if (count>0){
@@ -104,20 +96,6 @@ public class IUserServerImpl implements UserServer{
             return ServerSponse.createBySuccessMessage(tokenId);
         }
         return ServerSponse.createByErrorMessage("输入错误请仔细核对");
-    }
-
-    @Override
-    public ServerSponse<User> reg(User user) {
-        if (user.getQuestion().equalsIgnoreCase(user.getAnswer())){
-            return ServerSponse.createByErrorMessage("问题和答案不能一致！");
-        }
-        else{
-            int count=userMapper.insert(user);
-            if (count>0){
-                return ServerSponse.createBySuccessMessage("注册成功！");
-            }
-            return ServerSponse.createByErrorMessage("注册失败");
-        }
     }
 
     @Override
@@ -149,7 +127,7 @@ public class IUserServerImpl implements UserServer{
         String oldPassword=MD5Code.MD5EncodeUtf8(passwordOld);
         int countOld=userMapper.checkPassword(oldPassword,user.getId());
         if (countOld<=0){
-           return ServerSponse.createByErrorMessage("密码错误，请仔细核对在输入");
+            return ServerSponse.createByErrorMessage("密码错误，请仔细核对在输入");
         }
         user.setPassword(MD5Code.MD5EncodeUtf8(passwordNew));
         user.setId(user.getId());

@@ -38,9 +38,10 @@ public class UserController {
     @Autowired
     private UserServer userServer;
 
+    //用户登录问题
     @RequestMapping(value = "login.do",method = RequestMethod.POST)
     @ResponseBody
-    public ServerSponse<User> login(String username, String password, HttpSession session)throws Exception{
+    public ServerSponse<User> login(String username, String password, HttpSession session){
         System.out.println(username+" "+password);
         ServerSponse<User> response = userServer.login(username,password);
         if(response.isSuccess()){
@@ -48,6 +49,7 @@ public class UserController {
         }
         return response;
     }
+    //检查用户名是否重复
     @RequestMapping(value = "check_username.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerSponse<String> check_username(String username){
@@ -56,39 +58,40 @@ public class UserController {
         System.out.println(response);
         return response;
     }
+    //检查邮箱是否重复
     @RequestMapping(value = "check_email.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerSponse<String> check_User_email(String email){
-       // String email=(String)request.getAttribute("email");
+        // String email=(String)request.getAttribute("email");
         System.out.println(email);
         ServerSponse<String> email_1= userServer.checkUseremail(email);
         System.out.println(email);
         System.out.println(email_1);
         return email_1;
     }
-
+    //检查电话号码是否重复
     @RequestMapping(value = "check_phone.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerSponse<String> check_phone(String phone){
         ServerSponse<String> check_user_phone=userServer.checkUserphone(phone);
         return check_user_phone;
     }
+    //注册用户
     @RequestMapping(value = "reg_user.do",method = RequestMethod.POST)
     @ResponseBody
-    public ServerSponse<User> reg_user_(String username, String password, String email, String phone, String question, String answer,String role,String create_time,String update_time) throws ParseException {
+    public ServerSponse<User> reg_user_(String username, String password, String email, String phone, String question, String answer,String role) throws ParseException {
         User user=new User();
         String pass_1=MD5Code.MD5EncodeUtf8(password);
         int role_number=Integer.parseInt(role);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");//yyyy-mm-dd, 会出现时间不对, 因为小写的mm是代表: 秒
-        Date utilDate = sdf.parse(create_time);
-        Date utilDate_ = sdf.parse(update_time);
-        System.out.println(utilDate);//查看utilDate的值
+
         user.setUsername(username);user.setPassword(pass_1);user.setEmail(email);user.setPhone(phone);user.setRole(role_number);
-        user.setQuestion(question);user.setAnswer(answer);user.setCreateTime(utilDate);user.setUpdateTime(utilDate_);
+        user.setQuestion(question);user.setAnswer(answer);
         System.out.println(user.getUsername()+"\n"+pass_1+"\t"+user.getPassword());
         ServerSponse<User> reg_user=userServer.reg(user);
         return reg_user;
     }
+    //
     @RequestMapping(value = "upload_path.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerSponse<User> upload_path_(String img_path,HttpServletRequest request) throws ParseException {
@@ -99,6 +102,7 @@ public class UserController {
 
         return null;
     }
+
     public ServerSponse<String> isAdmin(HttpSession session){
         User user=(User)session.getAttribute(Coust.CURRENT_USER);
         if (user==null){
@@ -106,38 +110,39 @@ public class UserController {
         }
         return userServer.checkUserAdmin(user);
     }
+    //检查用户名、密保问题和答案是否一致
     @RequestMapping(value = "check_userAnswer.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerSponse<String> checkAnswer(HttpSession session,String username,String question,String answer){
 
         return userServer.checkUserAnswer(username,question,answer);
     }
+    //重置密码-->忘记密码的时候，直接重置
     @RequestMapping(value = "forget_password.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerSponse<String> forgetResetPassword(String username,String passwordNew,String forgetToken){
         return userServer.forgetResetPassword(username, passwordNew, forgetToken);
     }
+    //修改密码
     @RequestMapping(value = "set_password.do",method = RequestMethod.POST)
     @ResponseBody
-    public ServerSponse<String> updateSetPassword(HttpSession session,String username,String passwordNew,String forgetToken){
+    public ServerSponse<String> updateSetPassword(HttpSession session,String passwordOld,String passwordNew){
         User user=(User)session.getAttribute(Coust.CURRENT_USER);
         if (user==null){
             return ServerSponse.createByErrorCodeMessage(Sta_Type.NEED_LOGIN.getCode(),"需要登录才可以操作");
         }
-        return userServer.resetPassword(username, passwordNew,user);
+        return userServer.resetPassword(passwordOld, passwordNew,user);
+    }
+    //登录出去
+    @RequestMapping(value = "login_out.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerSponse<String> loginOut(HttpSession session){
+        User user=(User)session.getAttribute(Coust.CURRENT_USER);
+        if (user!=null){
+            session.removeAttribute(Coust.CURRENT_USER);
+            return ServerSponse.createBySuccessMessage("退出登录成功");
+        }
+        return ServerSponse.createByErrorMessage("退出失败，需要登录才可以操作");
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 

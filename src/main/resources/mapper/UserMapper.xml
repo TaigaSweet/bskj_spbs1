@@ -19,7 +19,7 @@
     id, username, password, email, phone, question, answer, role, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from mmall_user
     where id = #{id,jdbcType=INTEGER}
@@ -30,13 +30,13 @@
   </delete>
   <insert id="insert" parameterType="com.spbs.entity.User" >
     insert into mmall_user (username, password,
-      email, phone, question, 
-      answer, role, create_time, 
+      email, phone, question,
+      answer, role, create_time,
       update_time)
     values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
-      #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{question,jdbcType=VARCHAR}, 
-      #{answer,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{question,jdbcType=VARCHAR},
+      #{answer,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, now(),
+      now())
   </insert>
   <insert id="insertSelective" parameterType="com.spbs.entity.User" >
     insert into mmall_user
@@ -98,10 +98,10 @@
         #{role,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
+        now(),
       </if>
       <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
+        now(),
       </if>
     </trim>
   </insert>
@@ -133,7 +133,7 @@
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        update_time = now(),
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -148,31 +148,31 @@
       answer = #{answer,jdbcType=VARCHAR},
       role = #{role,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
 
   <!-- 测试登录用户 -->
-    <select id="checkUsername" resultType="int" parameterType="string" >
+  <select id="checkUsername" resultType="int" parameterType="string" >
     select count(1) from mmall_user
     where username = #{username}
   </select>
   <select id="checkUseremail" resultType="int" parameterType="string" >
     select count(1) from mmall_user
-    where email = #{username}
+    where email = #{email}
   </select>
   <select id="checkUserphone" resultType="int" parameterType="string" >
     select count(1) from mmall_user
-    where phone = #{username}
+    where phone = #{phone}
   </select>
-    <select id="selectLoginByName" resultMap="BaseResultMap" parameterType="map">
-        SELECT
-        <!--      ???//这样真的好么?答案就是,这样不好.-->
-        <include refid="Base_Column_List" />
-        from mmall_user
-        where username = #{username}
-        and password = #{password}
-    </select>
+  <select id="selectLoginByName" resultMap="BaseResultMap" parameterType="map">
+    SELECT
+    <!--      ???//这样真的好么?答案就是,这样不好.-->
+    <include refid="Base_Column_List" />
+    from mmall_user
+    where username = #{username}
+    and password = #{password}
+  </select>
   <select id="selectLoginByPhone" resultMap="BaseResultMap" parameterType="map">
     SELECT
     <!--      ???//这样真的好么?答案就是,这样不好.-->
@@ -189,10 +189,16 @@
     where email = #{username}
     and password = #{password}
   </select>
-  <select id="checkUserAnswer" resultMap="int" parameterType="map">
-    select <include refid="Base_Column_List" /> from mmall_user
-    where email = #{email} and question=#{question} and answer=#{answer}
+
+  <select id="checkUserAnswer" resultType="int" parameterType="map">
+    SELECT
+    count(1)
+    from mmall_user
+    where username=#{username}
+    and question = #{question}
+    and answer = #{answer}
   </select>
+
   <update id="updatePasswordByUsername" parameterType="map">
     update mmall_user
     SET password = #{passwordNew},update_time = now()
@@ -212,5 +218,4 @@
     where email = #{email}
     and id != #{userId}
   </select>
-
 </mapper>
