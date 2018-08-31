@@ -40,7 +40,7 @@ public class UserController {
 
     @RequestMapping(value = "login.do",method = RequestMethod.POST)
     @ResponseBody
-    public ServerSponse<User> login(String username, String password, HttpSession session){
+    public ServerSponse<User> login(String username, String password, HttpSession session)throws Exception{
         System.out.println(username+" "+password);
         ServerSponse<User> response = userServer.login(username,password);
         if(response.isSuccess()){
@@ -105,6 +105,26 @@ public class UserController {
             return ServerSponse.createByErrorCodeMessage(Sta_Type.NEED_LOGIN.getCode(),"您好需要登录才可以操作");
         }
         return userServer.checkUserAdmin(user);
+    }
+    @RequestMapping(value = "check_userAnswer.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerSponse<String> checkAnswer(HttpSession session,String username,String question,String answer){
+
+        return userServer.checkUserAnswer(username,question,answer);
+    }
+    @RequestMapping(value = "forget_password.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerSponse<String> forgetResetPassword(String username,String passwordNew,String forgetToken){
+        return userServer.forgetResetPassword(username, passwordNew, forgetToken);
+    }
+    @RequestMapping(value = "set_password.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerSponse<String> updateSetPassword(HttpSession session,String username,String passwordNew,String forgetToken){
+        User user=(User)session.getAttribute(Coust.CURRENT_USER);
+        if (user==null){
+            return ServerSponse.createByErrorCodeMessage(Sta_Type.NEED_LOGIN.getCode(),"需要登录才可以操作");
+        }
+        return userServer.resetPassword(username, passwordNew,user);
     }
 }
 

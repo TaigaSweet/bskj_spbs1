@@ -1,13 +1,36 @@
 package com.spbs.servers.impl;
 
 import com.spbs.common.Coust;
+import com.spbs.common.ForgetToken;
 import com.spbs.common.MD5Code;
 import com.spbs.common.ServerSponse;
 import com.spbs.dao.UserMapper;
 import com.spbs.entity.User;
 import com.spbs.servers.UserServer;
+import com.sun.mail.util.MailSSLSocketFactory;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.Date;
+import java.util.Properties;
+import java.util.*;
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.activation.*;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
+import com.sun.mail.util.MailSSLSocketFactory;
 
 @Service("iUserService")
 public class IUserServerImpl implements UserServer{
@@ -16,7 +39,7 @@ public class IUserServerImpl implements UserServer{
     private UserMapper userMapper;
 
     @Override
-    public ServerSponse<User> login(String username, String password) {
+    public ServerSponse<User> login(String username, String password){
 
         String md5Password = MD5Code.MD5EncodeUtf8(password);
         //String em = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";String ph = "^[1][34578]\\d{9}$"; phoneNo.matches(ph)
@@ -73,6 +96,17 @@ public class IUserServerImpl implements UserServer{
     }
 
     @Override
+    public ServerSponse<String> checkUserAnswer(String username, String question, String answer) {
+        int count=userMapper.checkUserAnswer(username,question,answer);
+        if (count>0){
+            String tokenId=UUID.randomUUID().toString();
+            ForgetToken.setKey(ForgetToken.TOKEN_PREFIX+username,tokenId);
+            return ServerSponse.createBySuccessMessage(tokenId);
+        }
+        return ServerSponse.createByErrorMessage("输入错误请仔细核对");
+    }
+
+    @Override
     public ServerSponse<User> reg(User user) {
         if (user.getQuestion().equalsIgnoreCase(user.getAnswer())){
             return ServerSponse.createByErrorMessage("问题和答案不能一致！");
@@ -84,5 +118,45 @@ public class IUserServerImpl implements UserServer{
             }
             return ServerSponse.createByErrorMessage("注册失败");
         }
+    }
+
+    @Override
+    public ServerSponse<String> forgetResetPassword(String username, String passwordNew, String forgetToken) {
+        if (StringUtils.isBlank(forgetToken)){
+            return ServerSponse.createByErrorMessage("需要传递参数，表示需要进行答案密码校验");
+        }
+        int resultCount = userMapper.checkUsername(username);
+        if (resultCount<1){
+            return ServerSponse.createByErrorMessage("用户名不存在，请仔细核对");
+        }
+        String tokenName=ForgetToken.getKey(ForgetToken.TOKEN_PREFIX+username);
+        if (StringUtils.isBlank(tokenName)){
+            return ServerSponse.createByErrorMessage("您当前的Token不存在或者以失效");
+        }
+        if (StringUtils.equals(forgetToken,tokenName)){
+            String passwordMD5=MD5Code.MD5EncodeUtf8(passwordNew);
+            int countByUpdate=userMapper.updatePasswordByUsername(username,passwordMD5);
+            if (countByUpdate>0){
+                return ServerSponse.createBySuccessMessage("修改密码成功");
+            }
+            return ServerSponse.createByErrorMessage("token失效");
+        }
+        return ServerSponse.createByErrorMessage("修改密码失败");
+    }
+
+    @Override
+    public ServerSponse<String> resetPassword(String passwordOld, String passwordNew, User user) {
+        String oldPassword=MD5Code.MD5EncodeUtf8(passwordOld);
+        int countOld=userMapper.checkPassword(oldPassword,user.getId());
+        if (countOld<=0){
+           return ServerSponse.createByErrorMessage("密码错误，请仔细核对在输入");
+        }
+        user.setPassword(MD5Code.MD5EncodeUtf8(passwordNew));
+        user.setId(user.getId());
+        int countNew=userMapper.updateByPrimaryKeySelective(user);
+        if (countNew>0){
+            return ServerSponse.createBySuccessMessage("密码修改成功");
+        }
+        return ServerSponse.createByErrorMessage("密码修改失败");
     }
 }

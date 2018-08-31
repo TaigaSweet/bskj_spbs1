@@ -159,11 +159,11 @@
   </select>
   <select id="checkUseremail" resultType="int" parameterType="string" >
     select count(1) from mmall_user
-    where email = #{email}
+    where email = #{username}
   </select>
   <select id="checkUserphone" resultType="int" parameterType="string" >
     select count(1) from mmall_user
-    where phone = #{phone}
+    where phone = #{username}
   </select>
     <select id="selectLoginByName" resultMap="BaseResultMap" parameterType="map">
         SELECT
@@ -189,4 +189,28 @@
     where email = #{username}
     and password = #{password}
   </select>
+  <select id="checkUserAnswer" resultMap="int" parameterType="map">
+    select <include refid="Base_Column_List" /> from mmall_user
+    where email = #{email} and question=#{question} and answer=#{answer}
+  </select>
+  <update id="updatePasswordByUsername" parameterType="map">
+    update mmall_user
+    SET password = #{passwordNew},update_time = now()
+    where username = #{username}
+  </update>
+  <select id="checkPassword" resultType="int" parameterType="map">
+    SELECT
+    count(1)
+    from mmall_user
+    where password = #{password}
+    and id = #{userId}
+  </select>
+
+
+  <select id="checkEmailByUserId" resultType="int" parameterType="map">
+    select count(1) from mmall_user
+    where email = #{email}
+    and id != #{userId}
+  </select>
+
 </mapper>

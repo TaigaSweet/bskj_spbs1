@@ -12,10 +12,9 @@ $(function(){
     $("#login-button_1").click(function(){
         location.href="reg.jsp";
     });
-$("#login-button").click(function(){var file=$("#file").val();
+$("#login-button").click(function(){
     var userN=$("#userName").val();
     var userP=$("#userPsw").val();
-    console.log(file);
     $.ajax({
         url:"user/login.do",
         type:"post",
@@ -44,7 +43,7 @@ $("#login-button").click(function(){var file=$("#file").val();
             //location.href="index.jsp";
         },
         error:function (msg) {
-            //alert(msg);
+            alert(msg);
             console.log(msg);
             location.href="login.jsp";
         }
