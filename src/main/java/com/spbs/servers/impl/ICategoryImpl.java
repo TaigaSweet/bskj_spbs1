@@ -9,6 +9,7 @@ import com.spbs.entity.Category;
 import com.spbs.servers.CategoryServer;
 import net.sf.jsqlparser.schema.Server;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,37 @@ import java.util.Set;
 public class ICategoryImpl implements CategoryServer {
     @Autowired
     private CategoryMapper categoryMappers;
+
+    @Override
+    public ServerSponse<String> addCategoryItems(String cateName, Integer cateId) {
+        if (cateId==null||StringUtils.isBlank(cateName)){
+            return ServerSponse.createByErrorMessage("参数错误，需要仔细核对是否输入");
+        }
+        Category category=new Category();
+        category.setName(cateName);
+        category.setParentId(cateId);
+        category.setStatus(true);//这个分类是可用的
+        int count=categoryMappers.insert(category);
+        if (count>0){
+            return ServerSponse.createBySuccessMessage("添加商品分类成功");
+        }
+        return ServerSponse.createBySuccessMessage("添加商品失败");
+    }
+
+    @Override
+    public ServerSponse<String> updateCategoryItems(String cateName, Integer categoryId) {
+        if (categoryId==null||StringUtils.isBlank(cateName)){
+            return ServerSponse.createByErrorMessage("参数错误，需要仔细核对是否输入");
+        }
+        Category category=new Category();
+        category.setName(cateName);
+        category.setId(categoryId);
+        int count=categoryMappers.updateByPrimaryKeySelective(category);
+        if (count>0){
+            return ServerSponse.createBySuccessMessage("更新商品分类成功");
+        }
+        return ServerSponse.createBySuccessMessage("更新商品失败");
+    }
 
     public ServerSponse<List<Category>> getChildrenParallelCategory(Integer pare_id){
         List<Category> list=categoryMappers.selectCategoryChildrenByParentId(pare_id);
@@ -41,6 +73,16 @@ public class ICategoryImpl implements CategoryServer {
             }
         }
         return ServerSponse.createBySuccess(cateIdList);
+    }
+
+    @Override
+    public ServerSponse<String> deleteCategoryItems(Integer categoryId) {
+        int count=categoryMappers.deleteByPrimaryKey(categoryId);
+        if (count>0){
+            System.out.println(categoryId);
+            return  ServerSponse.createBySuccessMessage("删除成功");
+        }
+        return ServerSponse.createByErrorMessage("删除失败");
     }
 
     //递归算法,算出子节点
