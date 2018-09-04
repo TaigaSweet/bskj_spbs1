@@ -22,7 +22,7 @@ public class MD5Code {
 
     /**
      * 返回大写MD5
-     *
+     *geelysdafaqj23ou89ZXcj@#$@#$#@KJdjklj;D../dSF.,
      * @param origin
      * @param charsetname
      * @return
@@ -42,7 +42,7 @@ public class MD5Code {
     }
 
     public static String MD5EncodeUtf8(String origin) {
-        //origin = origin + PropertiesUtil.getProperty("password.salt", "");
+        origin = origin + PropertiesUtil.getProperty("","nul");
         return MD5Encode(origin, "utf-8");
     }
     private static final String hexDigits[] = {"0", "1", "2", "3", "4", "5",
