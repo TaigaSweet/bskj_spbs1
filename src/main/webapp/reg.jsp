@@ -17,7 +17,6 @@
 <script>
 $(function(){
     var userEntity='${sessionScope.currentUser.getUsername()}';
-    alert(userEntity);
 });
 </script>
 <body>

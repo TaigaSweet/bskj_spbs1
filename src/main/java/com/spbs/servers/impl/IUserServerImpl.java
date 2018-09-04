@@ -6,7 +6,7 @@ import com.spbs.common.MD5Code;
 import com.spbs.common.ServerSponse;
 import com.spbs.dao.UserMapper;
 import com.spbs.entity.User;
-import com.spbs.servers.UserServer;
+import com.spbs.servers.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 @Service("iUserService")
-public class IUserServerImpl implements UserServer{
+public class IUserServerImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;

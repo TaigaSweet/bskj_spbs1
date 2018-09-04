@@ -67,13 +67,11 @@
     </style>
 </head>
 <body>
-<div>
-    <div class="file-box">
-        <input type="file" class="file-btn"/>
-        上传文件
-    </div>
-    <img id="img_class" style="height:100px;width:100px;" src="" />
-    <div id="file-load"><p id="ac" style="color: white;position: relative;top: 08px;left: 0px;">添加</p></div><br />
+<div class="row">
+    <span class="personattr">身份证正面照片:</span>
+    <input type="hidden" name="img"  id="thumbUrl"/>
+    <input type="file" name="logoFile" id="logoFile" onchange="setImg(this);">
+    <span><img id="thumburlShow" src="" width="120" height="120"/></span>
 </div>
 </body>
 </html>

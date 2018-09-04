@@ -4,21 +4,17 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.spbs.common.ServerSponse;
 import com.spbs.dao.CategoryMapper;
-import com.spbs.dao.UserMapper;
 import com.spbs.entity.Category;
-import com.spbs.servers.CategoryServer;
-import net.sf.jsqlparser.schema.Server;
-import org.apache.commons.collections.CollectionUtils;
+import com.spbs.servers.CategoryService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-@Service("iCategoryServer")
-public class ICategoryImpl implements CategoryServer {
+@Service("iCategoryService")
+public class ICategoryImpl implements CategoryService {
     @Autowired
     private CategoryMapper categoryMappers;
 

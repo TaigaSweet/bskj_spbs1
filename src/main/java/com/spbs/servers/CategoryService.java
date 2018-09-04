@@ -5,7 +5,7 @@ import com.spbs.entity.Category;
 
 import java.util.List;
 
-public interface CategoryServer {
+public interface CategoryService {
     ServerSponse<String> addCategoryItems(String cateName,Integer cateId);
     ServerSponse<String> updateCategoryItems(String cateName,Integer categoryId);
     ServerSponse<List<Category>> getChildrenParallelCategory(Integer categoryId);

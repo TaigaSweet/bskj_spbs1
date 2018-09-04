@@ -1,9 +1,9 @@
 package com.spbs.servers.impl;
 
-import com.spbs.servers.ProductServer;
+import com.spbs.servers.ProductService;
 import org.springframework.stereotype.Service;
 
-@Service("iProductServer")
-public class IProductImpl implements ProductServer {
+@Service("iProductService")
+public class IProductImpl implements ProductService {
 
 }

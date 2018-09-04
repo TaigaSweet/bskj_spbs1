@@ -4,7 +4,7 @@ import com.spbs.common.ServerSponse;
 import com.spbs.entity.User;
 import org.apache.ibatis.annotations.Param;
 
-public interface UserServer {
+public interface UserService {
     ServerSponse<User> login(String username, String password);
 
     ServerSponse<String> checkUsernames(String username);
