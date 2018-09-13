@@ -37,7 +37,6 @@ public class ProductManagerController {
             return  ServerSponse.createByErrorCodeMessage(Sta_Type.NEED_LOGIN.getCode(),"需要强制登录");
         }
         if (user.getRole()==Coust.Role.ROLE_ADMIN){
-
         }
         return ServerSponse.createByErrorMessage("你没有权限");
     }

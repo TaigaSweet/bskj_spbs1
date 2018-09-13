@@ -14,7 +14,7 @@
         <!--<File>d:/mmalllog/mmall.log</File>D:/apache-tomcat-8.0.50/logs-->
         <File>d:/mavenProject/bskj_spbs1/src/main/webapp/loggerTest/successText/mmall.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>d:/mavenProject/bskj_spbs1/src/main/webapp/loggerTest/successText/mmall.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <fileNamePattern>~/bskj_spbs1/src/main/webapp/loggerTest/successText/mmall.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
             <append>true</append>
             <maxHistory>10</maxHistory>
         </rollingPolicy>
@@ -28,7 +28,7 @@
         <!--<File>d:/mmalllog/error.log</File>-->
         <File>d:/mavenProject/bskj_spbs1/src/main/webapp/loggerTest/errorText/error.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>d:/mavenProject/bskj_spbs1/src/main/webapp/loggerTest/errorText/error.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <fileNamePattern>~/bskj_spbs1/src/main/webapp/loggerTest/errorText/error.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
             <!--<fileNamePattern>d:/mmalllog/error.log.%d{yyyy-MM-dd}.gz</fileNamePattern>-->
             <append>true</append>
             <maxHistory>10</maxHistory>

@@ -1,6 +1,6 @@
 var status_email;
 $(function() {
-    $("#username").blur(function () {
+    $("#username").change(function () {
         var userN=document.getElementById("username").value;
         if (userN!=null&&userN!=""){
             $.ajax({

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
-@Service("iUserService")
+@Service(value = "iUserService")
 public class IUserServerImpl implements UserService {
 
     @Autowired

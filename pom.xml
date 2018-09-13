@@ -259,6 +259,12 @@
           <artifactId>mail</artifactId>
           <version>1.4.7</version>
       </dependency>
+      <!-- ES搜索 -->
+      <dependency>
+          <groupId>org.elasticsearch</groupId>
+          <artifactId>elasticsearch</artifactId>
+          <version>1.5.0</version>
+      </dependency>
   </dependencies>
 
   <build>

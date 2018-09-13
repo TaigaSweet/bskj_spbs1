@@ -11,7 +11,7 @@ public class PropertiesUtil {
     public static Logger logger=LoggerFactory.getLogger(PropertiesUtil.class);
     public static Properties properties;
     static {
-        String strPro="saltSpbs.properties";
+        String strPro= "UtilHelper.properties";
         properties=new Properties();
         try{
             properties.load(new InputStreamReader(PropertiesUtil.class.getClassLoader().getResourceAsStream(strPro),"utf-8"));
@@ -29,7 +29,7 @@ public class PropertiesUtil {
     public static String getProperty(String key,String defaultValue){
         String value=properties.getProperty(key.trim());
         if (StringUtils.isBlank(value)){
-            return defaultValue;
+            value = defaultValue;
         } return value.trim();
     }
 }

@@ -10,6 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <title>账户注册</title>
+    <link type="text/css" href="css/MailboxPrompt.css" rel="Stylesheet" />
     <link type="text/css" href="css/user_reg_deal.css" rel="Stylesheet" />
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     <script src="js/javascript/reg.js"></script>
@@ -100,4 +101,5 @@ $(function(){
     </div>
 </div>
 </body>
+<script type="text/javascript" src="js/emailAutoComplete.js"></script>
 </html>

@@ -6,6 +6,7 @@ import com.spbs.common.ServerSponse;
 import com.spbs.common.Sta_Type;
 import com.spbs.entity.User;
 import com.spbs.servers.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,9 +26,12 @@ public class UserController {
     //用户登录问题
     @RequestMapping(value = "login.do",method = RequestMethod.POST)
     @ResponseBody
-    public ServerSponse<User> login(String username, String password, HttpSession session){
-        System.out.println(username+" "+password);
-        ServerSponse<User> response = userService.login(username,password);
+    public ServerSponse<User> login(String userName, String userPsw, HttpSession session){
+        System.out.println(userName+" "+userPsw);
+        if (StringUtils.isBlank(userName)||StringUtils.isBlank(userPsw)){
+            return ServerSponse.createByErrorCodeMessage(Sta_Type.USER_PSW_NULL.getCode(),"用户名或者密码为空");
+        }
+        ServerSponse<User> response = userService.login(userName,userPsw);
         if(response.isSuccess()){
             session.setAttribute(Coust.CURRENT_USER,response.getData());
         }
@@ -66,6 +70,7 @@ public class UserController {
     public ServerSponse<User> reg_user_(String username, String password, String email, String phone, String question, String answer,String role) throws ParseException {
         User user=new User();
         String pass_1=MD5Code.MD5EncodeUtf8(password);
+        System.out.println(pass_1);
         int role_number=Integer.parseInt(role);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");//yyyy-mm-dd, 会出现时间不对, 因为小写的mm是代表: 秒
 
@@ -116,5 +121,17 @@ public class UserController {
         }
         return ServerSponse.createByErrorMessage("退出失败，需要登录才可以操作");
     }
+    //用户修改
+    public ServerSponse<User> updateUsers(String username, String email, String phone, String question, String answer,HttpSession session){
+        User user=(User) session.getAttribute(Coust.CURRENT_USER);
+        if (user==null){
+            return ServerSponse.createByErrorCodeMessage(Sta_Type.NEED_LOGIN.getCode(),"需要强制登录");
+        }
+        User user1=new User();
+        user1.setUsername(username);user1.setPhone(phone);user1.setEmail(email);user1.setQuestion(question);user1.setAnswer(answer);
+        ServerSponse<User> serverSponse=userService.reg(user1);
+        return null;
+    }
+
 }
 
