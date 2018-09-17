@@ -13,25 +13,27 @@
     <script src="js/javascript/upload.js"></script>
     <style>
         body {
-            margin:0px;
-            background-image:none;
-            position:relative;
-            left:-0px;
-            width:800px;
-            margin-left:auto;
-            margin-right:auto;
-            text-align:left;
+            margin: 0px;
+            background-image: none;
+            position: relative;
+            left: -0px;
+            width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
 
         }
-        .file-box{
+
+        .file-box {
             display: inline-block;
             position: relative;
             padding: 3px 5px;
             overflow: hidden;
-            color:#fff;
+            color: #fff;
             background-color: #ccc;
         }
-        .file-btn{
+
+        .file-btn {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -39,12 +41,13 @@
             left: 0;
             outline: none;
             background-color: transparent;
-            filter:alpha(opacity=0);
-            -moz-opacity:0;
+            filter: alpha(opacity=0);
+            -moz-opacity: 0;
             -khtml-opacity: 0;
             opacity: 0;
         }
-        #file-load{
+
+        #file-load {
             width: 127px;
             height: 38px;
             background: inherit;
@@ -69,7 +72,7 @@
 <body>
 <div class="row">
     <span class="personattr">身份证正面照片:</span>
-    <input type="hidden" name="img"  id="thumbUrl"/>
+    <input type="hidden" name="img" id="thumbUrl"/>
     <input type="file" name="logoFile" id="logoFile" onchange="setImg(this);">
     <span><img id="thumburlShow" src="" width="120" height="120"/></span>
 </div>

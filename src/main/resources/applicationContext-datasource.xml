@@ -95,9 +95,8 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="rollbackOnCommitFailure" value="true"/>
     </bean>
-    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
-        <!-- 事务出现this advice advises not method-->
-
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+    <!-- 事务出现this advice advises not method-->
 
 
 </beans>

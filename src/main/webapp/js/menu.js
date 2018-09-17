@@ -67,7 +67,7 @@ window.onload = function () {
             this.classList.add("seconFocus");
         }
     }
-    
+
     // 隐藏菜单
     var obscure = document.querySelector(".navH span");
     var open = document.querySelector("#open");
@@ -101,6 +101,7 @@ function getByClass(clsName, parent) {
     }
     return boxArr;
 }
+
 // 获取下一个兄弟元素
 function getNext(node) {
     if (!node.nextSibling) return null;

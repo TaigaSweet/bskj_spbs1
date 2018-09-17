@@ -1,5 +1,6 @@
 package com.spbs.dao;
 
+import com.google.common.collect.Lists;
 import com.spbs.entity.Category;
 
 import java.util.List;
@@ -16,7 +17,10 @@ public interface CategoryMapper {
     int updateByPrimaryKeySelective(Category record);
 
     int updateByPrimaryKey(Category record);
+
     List<Category> selectCategoryChildrenByParentId(int parentId);
 
-    int deleteCategoryItems(int parentId);
+    int deleteCategoryItems(int parentId);//selectList
+
+    List<Category> selectList();
 }

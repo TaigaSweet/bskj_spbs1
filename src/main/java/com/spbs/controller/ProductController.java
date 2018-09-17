@@ -21,15 +21,16 @@ import java.util.List;
 public class ProductController {
     @Autowired
     private ProductService productServer;
+
     //添加商品---后台
     //修改商品的状态-->属于管理员权限
     public ServerSponse<String> updateProductStatus(Integer status,
-                                                    HttpSession session){
-        User user=(User)session.getAttribute(Coust.CURRENT_USER);
-        if (user==null){
-            return ServerSponse.createByErrorCodeMessage(Sta_Type.NEED_LOGIN.getCode(),"需要强制登录才可查询");
+                                                    HttpSession session) {
+        User user = (User) session.getAttribute(Coust.CURRENT_USER);
+        if (user == null) {
+            return ServerSponse.createByErrorCodeMessage(Sta_Type.NEED_LOGIN.getCode(), "需要强制登录才可查询");
         }
-        if (user.getRole()==Coust.Role.ROLE_ADMIN){
+        if (user.getRole() == Coust.Role.ROLE_ADMIN) {
 
         }
         return ServerSponse.createByErrorMessage("没有权限");
@@ -39,7 +40,7 @@ public class ProductController {
     @RequestMapping(value = "detail.do")
     @ResponseBody
     public ServerSponse<ProductDetailVo> showDetailed(Integer id,
-                                                      HttpSession session){
+                                                      HttpSession session) {
         /*User user=(User)session.getAttribute(Coust.CURRENT_USER);
         if (user==null){
             return ServerSponse.createByErrorCodeMessage(Sta_Type.NEED_LOGIN.getCode(),"需要强制登录才可查询");
@@ -48,8 +49,8 @@ public class ProductController {
     }
 
     //商品分页
-    public ServerSponse<List<Product>> listProduct(@RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
-                                                   @RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
+    public ServerSponse<List<Product>> listProduct(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
+                                                   @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
 
         return null;
     }

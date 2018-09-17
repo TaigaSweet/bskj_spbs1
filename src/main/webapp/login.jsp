@@ -6,10 +6,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@page language="java" import="java.*"  %>
+<%@page language="java" import="java.*" %>
 <%@ page import="javax.swing.plaf.synth.SynthStyle" %>
 <%
-    String path=request.getContextPath();
+    String path = request.getContextPath();
 
 %>
 <!DOCTYPE html>
@@ -21,14 +21,14 @@
 </head>
 <body>
 <div class="htmleaf-container">
-    <input id="dataPath" type="text" hidden="hidden" value="<%=path%>" />
+    <input id="dataPath" type="text" hidden="hidden" value="<%=path%>"/>
     <div class="wrapper">
         <div class="container">
             <h1>Welcome</h1>
 
             <form class="form" action="user/login.do" method="post" onsubmit="return checkAll();">
-                <input type="text" required  id="userName" name="userName" placeholder="Username">
-                <input type="password" required  id="userPsw" name="userPsw" placeholder="Password">
+                <input type="text" required id="userName" name="userName" placeholder="Username">
+                <input type="password" required id="userPsw" name="userPsw" placeholder="Password">
                 <button type="submit" id="login-button">Login</button>
                 <button type="button" id="login-button_1">register</button>
             </form>
